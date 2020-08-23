@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "test": "mocha -r ts-node/register tests/**/*_test.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "seed": "mocha -r ts-node/register utilities/index.ts"
   },
   "repository": {
     "type": "git",

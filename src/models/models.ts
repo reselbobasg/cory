@@ -46,7 +46,7 @@ export interface IRating extends Document {
   createdAt: Date;
   updates: Array<Date>,
   lastUpdate: Date
-  capability: ICapability;
+  capability_id: string;
 }
 
 const capabilitySchema: Schema = new Schema({
@@ -75,12 +75,7 @@ const ratingSchema: Schema = new Schema( {
   createdAt: { type: Date, default: Date.now },
   updates: { type:[Date]},
   lastUpdate: { type: Date },
-  capability: {
-    capabilityType: { type: String, enum: Object.values(CapabilityType),required: true  },
-    description: { type: String, required: true },
-    createDate: { type: Date, default: Date.now },
-    updates: { type:[Date]}
-  }
+  capability_id:{type: String, required: true},
 });
 
 const Capability = mongoose.model<ICapability>('Capability', capabilitySchema);
