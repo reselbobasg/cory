@@ -20,10 +20,11 @@
   },
   "homepage": "https://github.com/reselbobasg/cory#readme",
   "dependencies": {
-    "typescript": "^3.9.7",
+    "@mongoosejs/double": "^0.2.0",
     "graphql": "^15.3.0",
     "mongoose": "^5.10.0",
-    "mongoose-extend-schema": "^1.0.0"
+    "mongoose-extend-schema": "^1.0.0",
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.1",

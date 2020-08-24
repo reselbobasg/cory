@@ -13,14 +13,14 @@ export enum  CapabilityType {
 };
 
 export interface IReviewer extends Document {
-  _id: string;
+  //_id: string;
   firstName:  string;
   lastName: string;
   email: string;
 }
 
 export interface IVendor extends Document {
-  _id: string;
+  //_id: string;
   name: string;
   comment: string;
   contact: {
@@ -44,8 +44,8 @@ export interface IRating extends Document {
   vendor: IVendor;
   reviewer: IReviewer;
   createdAt: Date;
-  updates: Array<Date>,
-  lastUpdate: Date
+  //updates: Array<Date>;
+  //lastUpdate: Date;
   capability_id: string;
 }
 
@@ -56,7 +56,7 @@ const capabilitySchema: Schema = new Schema({
 });
 
 const ratingSchema: Schema = new Schema( {
-  rating: {type: Schema.Types.Decimal128, required: true},
+  rating: {type: Number, required: true},
   comment: {type: String, required: true},
   reviewer: {
     firstName: {type: String, required: true},
@@ -81,4 +81,4 @@ const ratingSchema: Schema = new Schema( {
 const Capability = mongoose.model<ICapability>('Capability', capabilitySchema);
 const Rating = mongoose.model<IRating>('Rating', ratingSchema);
 
-export {Capability, Rating};
+export { Capability, Rating };

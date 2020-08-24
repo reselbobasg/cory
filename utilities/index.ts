@@ -1,6 +1,6 @@
 import { DataUtilities } from './data_utils';
 import { Database } from './../src/database/database';
-import {Capability, ICapability, CapabilityType} from './../src/models/models'
+import {Capability, ICapability, CapabilityType, Rating} from './../src/models/models'
 import { expect } from 'chai';
 import { describe, it, before } from 'mocha';
 import mongoose from 'mongoose';
@@ -17,11 +17,15 @@ describe('Data Seeder', function () {
     database.close();
   })
   
-  it('Can seed capabilities', async function () {
+  it('Can seed capabilities and capabilities', async function () {
     await DataUtilities.seedCapabilities();
-    const result = await Capability.find();
-    expect(result.length > 0).to.equal(true);
-    console.log({ result });
+    const capabilities = await Capability.find();
+    expect(capabilities.length > 0).to.equal(true);
+    await DataUtilities.seedRating(capabilities);
+    const ratings = await Rating.find();
+    console.log('----------------------');
+    console.log(ratings);
+    //expect(capabilities.length).to.equal(ratings.length);
   });
 
 });
