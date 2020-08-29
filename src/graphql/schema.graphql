@@ -1,0 +1,61 @@
+type Query {
+  helloWorld: String!
+  capabilities: [Capability]
+  ratings: [Rating]
+}
+
+scalar Date
+
+interface Capabilitable {
+  id: String
+  capabilityType:  CapabilityType
+  description: String
+  createDate: Date
+  }
+
+interface Personable {
+  firstName: String
+  lastName: String
+  email: String
+  }
+
+type Person implements Personable {
+  firstName: String
+  lastName: String
+  email: String
+  }
+
+type Capability implements Capabilitable{
+  id: String
+  capabilityType:  CapabilityType
+  description: String
+  createDate: Date
+}
+
+type Vendor {
+  name: String
+  comment:  String
+  contact: Person
+}
+
+type Rating{
+  id: String
+  rating: Float
+  comment: String
+  reviewer: Person
+  vendor: Vendor
+  createdAt: Date
+  capability_id: String
+}
+
+enum CapabilityType {
+  API
+  COLLABORATION
+  ENTERPRISEREADINESS
+  IDE
+  MONITORING
+  SECURITY
+  SOURCECONTROLMANAGEMENT
+  TESTING
+  TRACING
+}
