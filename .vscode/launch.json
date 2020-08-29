@@ -5,16 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch index.ts",
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
             ],
-            "program": "${workspaceFolder}/command/src/index.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
+            "args": [
+                "${workspaceFolder}/server.ts"
             ]
-        }
+    }
     ]
 }

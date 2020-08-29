@@ -2,7 +2,7 @@
   "name": "cory",
   "version": "0.0.1",
   "description": "A WIP project for implementing objective core capabilities analysis and rating of software services",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "ts-node ./index.ts",
     "start_server": "ts-node ./server.ts",

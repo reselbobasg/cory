@@ -45,7 +45,7 @@ type Rating{
   reviewer: Person
   vendor: Vendor
   createdAt: Date
-  capability_id: String
+  capability: Capability
 }
 
 enum CapabilityType {

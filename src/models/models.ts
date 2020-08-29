@@ -37,6 +37,8 @@ export interface ICapability extends Document {
   createDate?: Date;
 }
 
+
+
 export interface IRating extends Document {
   _id: string;
   rating: number;
@@ -47,6 +49,16 @@ export interface IRating extends Document {
   //updates: Array<Date>;
   //lastUpdate: Date;
   capability_id: string;
+}
+
+export interface ISimpleCapability{
+  _id: string;
+  capabilityType:  CapabilityType;
+  description: string;
+}
+
+export interface IFullRating extends IRating{
+  capability: ISimpleCapability;
 }
 
 const capabilitySchema: Schema = new Schema({
