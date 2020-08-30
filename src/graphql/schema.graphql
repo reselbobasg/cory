@@ -1,7 +1,10 @@
 type Query {
-  helloWorld: String!
   capabilities: [Capability]
   ratings: [Rating]
+}
+
+type Mutation {
+     addRating(rating: RatingInput): Rating
 }
 
 scalar Date
@@ -46,6 +49,26 @@ type Rating{
   vendor: Vendor
   createdAt: Date
   capability: Capability
+}
+
+input PersonInput{
+  firstName: String
+  lastName: String
+  email: String
+}
+
+input VendorInput{
+  name: String
+  comment:  String
+  contact: PersonInput
+}
+
+input RatingInput{
+  rating: Float!
+  comment: String!
+  reviewer: PersonInput!
+  vendor: VendorInput!
+  capability_id: String!
 }
 
 enum CapabilityType {
