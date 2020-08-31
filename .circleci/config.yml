@@ -5,4 +5,7 @@ jobs:
       image: 'ubuntu-1604:201903-01'
     steps:
       - checkout
-      - run: echo "Hello world!"
+      - run: git checkout Feature_Create_V1_API
+      - run: cd cory
+      - run: sh create_local_db.sh
+      - run: npm run-script seed
