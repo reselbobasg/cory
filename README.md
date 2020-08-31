@@ -1,6 +1,15 @@
 # Cory
 A WIP project for implementing objective core capabilities analysis and rating of software services
 
+## Understading the Cory Data Model
+
+![Data Model](./images/data-model.png)
+
+
+DETAILS TO BE PROVIDED
+
+Features and Reports have yet to be implemented
+
 ## Installation
 In order to run Cory on your local machine you must have Docker installed. The installation instructions are [here](https://docs.docker.com/get-docker/).
 
