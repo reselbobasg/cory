@@ -46,7 +46,7 @@ describe('API Tests', async function () {
     const ratingValue: number = Math.floor(Math.random() * 5) + 1;
     const comment = Faker.lorem.words(6);
     const mutation = `mutation{
-      addRating(rating: {rating: 1, comment: "labore molestias rerum at voluptatum molestias",
+      addRating(rating: {rating: ${ratingValue}, comment: "${comment}",
         reviewer: {firstName:"Justice",lastName:"Pacocha",email:"Justice.Pacocha@reviewer.com"}, 
         vendor: {name:"Aufderhar, Roob and Corwin",comment:"velit explicabo temporibus vitae accusantium",
           contact:{firstName:"Nona",lastName:"Russel",email:"Nona.Russel@AufderharRoob and Corwin.com"}}, 
@@ -65,6 +65,8 @@ describe('API Tests', async function () {
     expect(obj.id).to.be.a('string');
     expect(obj.rating).to.be.a('number');
     expect(obj.comment).to.be.a('string');
-
+    expect(obj.capability_id).to.equal(capability_id);
+    expect(obj.comment).to.equal(comment);
+    expect(obj.rating).to.equal(ratingValue);
   })
 });
