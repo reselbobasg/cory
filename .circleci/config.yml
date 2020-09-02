@@ -9,3 +9,4 @@ jobs:
       - run: sh create_local_db.sh
       - run: npm install
       - run: npm run-script seed
+      - run: npm test

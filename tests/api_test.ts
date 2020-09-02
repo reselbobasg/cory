@@ -50,7 +50,7 @@ describe('API Tests', async function () {
         reviewer: {firstName:"Justice",lastName:"Pacocha",email:"Justice.Pacocha@reviewer.com"}, 
         vendor: {name:"Aufderhar, Roob and Corwin",comment:"velit explicabo temporibus vitae accusantium",
           contact:{firstName:"Nona",lastName:"Russel",email:"Nona.Russel@AufderharRoob and Corwin.com"}}, 
-        capability_id: "5f499c4269ce90f3a2aaa3a4"}){
+        capability_id: "${capability_id}"}){
           id
           rating
           comment
