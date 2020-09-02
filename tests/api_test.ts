@@ -60,12 +60,9 @@ describe('API Tests', async function () {
     const result = await graphQLClient.request(mutation);
     console.log(result);
     const obj = result.addRating;
-    //expect(obj.comment).to.equal(comment);
-    //expect(obj.rating).to.equal(ratingValue);
     expect(obj.id).to.be.a('string');
     expect(obj.rating).to.be.a('number');
     expect(obj.comment).to.be.a('string');
-    //expect(obj.capability_id).to.equal(capability_id);
     expect(obj.comment).to.equal(comment);
     expect(obj.rating).to.equal(ratingValue);
   })
