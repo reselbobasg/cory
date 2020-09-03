@@ -54,6 +54,10 @@ describe('API Tests', async function () {
           id
           rating
           comment
+          capability{
+            description
+            capabilityType
+          }
         }
       }`;
     console.log(mutation);
@@ -65,5 +69,6 @@ describe('API Tests', async function () {
     expect(obj.comment).to.be.a('string');
     expect(obj.comment).to.equal(comment);
     expect(obj.rating).to.equal(ratingValue);
+    expect(obj.capability.capabilityType).to.equal(data.capabilities[0].capabilityType);
   })
 });

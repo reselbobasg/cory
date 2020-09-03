@@ -10,9 +10,8 @@ const resolverMap: IResolvers = {
   Mutation: {
     addRating: async (parent, args) => {
       //validate the capability_id
-      const caps = await Capability.find().lean();
-      const result = caps.filter((c) => c._id.toString() === args.rating.capability_id)
-      if (result.length === 0) throw new Error(`${args.rating.capability_id} is an unknown capability_id`)
+      const cap = await Capability.findById(args.rating.capability_id).lean();
+      if (!cap) throw new Error(`${args.rating.capability_id} is an unknown capability_id`)
       //create a model ...
       const rating = new Rating();
       rating.capability_id = args.rating.capability_id;
@@ -21,7 +20,12 @@ const resolverMap: IResolvers = {
       rating.reviewer = args.rating.reviewer;
       rating.vendor = args.rating.vendor;
       //... and save it
-      return await rating.save() as IRating
+      const result = await rating.save() as IFullRating;
+      result.capability = cap;
+      //result.capability.capabilityType = cap.capabilityType;
+      console.log({ data: result });
+
+      return result;
     },
   },
   Query: {
