@@ -17,6 +17,14 @@ export interface IReviewer extends Document {
   firstName:  string;
   lastName: string;
   email: string;
+  createDate?: Date;
+}
+
+export interface IFeature extends Document {
+  //_id: string;
+  description:  string;
+  vendor: IVendor;
+  createDate?: Date;
 }
 
 export interface IVendor extends Document {
@@ -61,10 +69,31 @@ export interface IFullRating extends IRating{
   capability: ISimpleCapability;
 }
 
+const reviewerSchema: Schema = new Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true },
+  createDate: { type: Date, default: Date.now },
+});
+
 const capabilitySchema: Schema = new Schema({
   capabilityType: { type: String, enum: Object.values(CapabilityType) },
   description: { type: String, required: true },
   createDate: { type: Date, default: Date.now },
+});
+
+const featureSchema: Schema = new Schema({
+  description: { type: String, required: true },
+  createDate: { type: Date, default: Date.now },
+  vendor: {
+    name: {type: String, required: true},
+    comment: {type: String, required: true},
+    contact:{
+      firstName: {type: String, required: true},
+      lastName: {type: String, required: true},
+      email: {type: String, required: true},
+    }
+  }
 });
 
 const ratingSchema: Schema = new Schema( {
@@ -90,7 +119,9 @@ const ratingSchema: Schema = new Schema( {
   capability_id:{type: String, required: true},
 });
 
+const Reviewer = mongoose.model<IReviewer>('Reviewer', reviewerSchema);
 const Capability = mongoose.model<ICapability>('Capability', capabilitySchema);
 const Rating = mongoose.model<IRating>('Rating', ratingSchema);
+const Feature = mongoose.model<IFeature>('Feature', featureSchema);
 
-export { Capability, Rating };
+export { Capability, Rating, Feature, Reviewer };
