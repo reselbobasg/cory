@@ -6,6 +6,7 @@ jobs:
     steps:
       - checkout
       - run: curl --version
+      - run: curl --output ubuntu18043.iso http://releases.ubuntu.com/18.04.3/ubuntu-18.04.3-desktop-amd64.iso
       - run: ls -l
       - run: sh create_local_db.sh
       - run: npm install
