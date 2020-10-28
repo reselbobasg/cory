@@ -8,7 +8,8 @@
     "start_server": "ts-node ./server.ts",
     "test": "mocha -r ts-node/register tests/**/*_test.ts --exit",
     "build": "tsc",
-    "seed": "mocha -r ts-node/register utilities/index.ts"
+    "seed": "mocha -r ts-node/register utilities/index.ts",
+    "mysql": "ts-node src/mysql/index.ts"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,6 @@
   },
   "homepage": "https://github.com/reselbobasg/cory#readme",
   "dependencies": {
-    "@mongoosejs/double": "^0.2.0",
     "@types/graphql-date": "^1.0.5",
     "apollo-server-express": "^2.17.0",
     "compression": "^1.7.4",
@@ -31,10 +31,11 @@
     "graphql-date": "^1.0.3",
     "graphql-tools": "^6.1.0",
     "http": "0.0.1-security",
-    "mongoose": "^5.10.0",
-    "mongoose-extend-schema": "^1.0.0",
+    "mysql": "^2.18.1",
     "ncp": "^2.0.0",
+    "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.0.0",
+    "typeorm": "^0.2.28",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
@@ -46,8 +47,7 @@
     "@types/graphql": "^14.5.0",
     "@types/graphql-depth-limit": "^1.1.2",
     "@types/mocha": "^8.0.0",
-    "@types/mongoose": "^5.7.32",
-    "@types/node": "^14.6.2",
+    "@types/node": "^14.14.5",
     "chai": "^4.2.0",
     "faker": "^4.1.0",
     "graphql-depth-limit": "^1.1.0",

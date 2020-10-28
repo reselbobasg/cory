@@ -1,17 +1,8 @@
-DATA_DIR=$PWD'/data';
+if [ ! "$(docker ps -q -f name=mysqldb)" ]; then
 
-if [ -d "$DATA_DIR" ]; then
-    rm -rf $DATA_DIR
+    # docker rm -f mysqldb
+    docker run --name=mysqldb -p 3307:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql/mysql-server:8.0
 fi
 
-mkdir $DATA_DIR
 
-if [ ! "$(docker ps -q -f name=mongodb)" ]; then
-    #if [ "$(docker ps -aq -f status=exited -f name=mongodb)" ]; then
-        # cleanup
-        docker rm -f mongodb
-#    fi
-    # run your container
-    docker run -d -p 27017:27017  -v $DATA_DIR:/data/db --name mongodb mongo
-fi
-
+mysql -h 127.0.0.1 -P 3306 -u root -p cory
