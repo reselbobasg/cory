@@ -18,7 +18,6 @@ describe('Data Access Tests', function () {
     })
 
     after(async () => {
-
     })
     it('Can create Person', async () => {
         await createConnection().then(async connection => {
@@ -33,8 +32,7 @@ describe('Data Access Tests', function () {
                 if(p.id === person.id) return p;
             });
             expect(result[0].id) .equals(person.id);
-
-
+            await connection.close();
         });
     })
 })
