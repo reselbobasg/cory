@@ -1,0 +1,1 @@
+CREATE DATABASE IF NOT EXISTS `cory`;GRANT ALL ON `cory`.* TO 'user'@'%';

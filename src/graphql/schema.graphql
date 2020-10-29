@@ -1,84 +1,209 @@
 type Query {
-  capabilities: [Capability]
-  ratings: [Rating]
+    capabilities: [Capability]
+    ratings: [Rating]
+    features: [Feature]
+    vendors: [Vendor]
+    reviewers: [Reviewer]
+    persons: [Person]
+}
+
+type StatusMessage{
+    code:String!
+    message: String!
 }
 
 type Mutation {
-     addRating(rating: RatingInput): Rating
+    addRating(rating: RatingInput): IRating
+    addCapabllity(capability: CapabilityInput): ICapability
+    addFeature(feature: FeatureInput): IFeature
+    addVendor(vendor: VendorInput): IVendor
+    addReviewer(reviewer: ReviewerInput): IPerson
+    addPerson(person: PersonInput): IPerson
+
+    updateRating(rating: UpdateRatingInput): IRating
+    updateCapabllity(capability: UpdateCapabilityInput): ICapability
+    updateFeature(feature: UpdateFeatureInput): IFeature
+    updateVendor(vendor: UpdateVendorInput): IVendor
+    updatePerson(person: UpdatePersonInput): IPerson
+
+    deleteRating(id: String): StatusMessage
+    deleteCapabllity(id: String): StatusMessage
+    deleteFeature(id: String): StatusMessage
+    deleteVendor(id: String): StatusMessage
+    deleteReviewer(id: String): StatusMessage
+    deletePerson(id: String) :StatusMessage
 }
 
 scalar Date
 
-interface Capabilitable {
-  id: String
-  capabilityType:  CapabilityType
-  description: String
-  createDate: Date
-  }
-
-interface Personable {
-  firstName: String
-  lastName: String
-  email: String
-  }
-
-type Person implements Personable {
-  firstName: String
-  lastName: String
-  email: String
-  }
-
-type Capability implements Capabilitable{
-  id: String
-  capabilityType:  CapabilityType
-  description: String
-  createDate: Date
+interface ICapability{
+    id: String
+    name:String
+    description: String
+    ratings:  [IRating]
+    createDate: Date
+    updateDates: [Date]
 }
 
-type Vendor {
-  name: String
-  comment:  String
-  contact: Person
+interface IVendor {
+    id: String
+    name: String
+    comment:  String
+    contact: IPerson
+    updateDates: [Date]
 }
 
-type Rating{
-  id: String
-  rating: Float
-  comment: String
-  reviewer: Person
-  vendor: Vendor
-  createdAt: Date
-  capability: Capability
+interface IPerson {
+    id: String
+    firstName: String
+    lastName: String
+    email: String
+    updateDates: [Date]
+}
+
+interface IFeature {
+    id: String
+    name:String
+    description: String
+    createDate: Date
+    updateDates: [Date]
+    ratings:  [IRating]
+}
+
+interface IRating{
+    id: String
+    rating: Float
+    comment: String
+    reviewer: IPerson
+    capability: ICapability
+    feature: IFeature
+    vendor: IVendor
+    createdAt: Date
+    updateDates: [Date]
+}
+
+type Feature implements IFeature {
+    id: String
+    name:String
+    description: String
+    ratings:  [IRating]
+    createDate: Date
+    updateDates: [Date]
+}
+
+type Person implements IPerson {
+    id: String
+    firstName: String
+    lastName: String
+    email: String
+    updateDates: [Date]
+}
+
+type Reviewer implements IPerson {
+    id: String
+    firstName: String
+    lastName: String
+    email: String
+    updateDates: [Date]
+}
+
+type Capability implements ICapability{
+    id: String
+    name:String
+    description: String
+    ratings:  [IRating]
+    createDate: Date
+    updateDates: [Date]
+}
+
+input FeatureInput  {
+    name:String!
+    description: String!
+    capability_id: String!
+}
+
+input UpdateFeatureInput  {
+    id: String
+    name:String!
+    description: String!
+    capability_id: String!
+}
+
+type Vendor implements IVendor {
+    id: String
+    name: String
+    comment:  String
+    contact: IPerson
+    updateDates: [Date]
+}
+
+type Rating implements  IRating{
+    id: String
+    rating: Float
+    comment: String
+    reviewer: IPerson
+    feature: IFeature
+    capability: ICapability
+    vendor: IVendor
+    createdAt: Date
+    updateDates: [Date]
 }
 
 input PersonInput{
-  firstName: String
-  lastName: String
-  email: String
+    firstName: String!
+    lastName: String!
+    email: String!
+}
+
+input UpdatePersonInput{
+    id: String!
+    firstName: String
+    lastName: String
+    email: String
+}
+
+input ReviewerInput  {
+    person_id: String!
+}
+
+input CapabilityInput{
+    name:String!
+    description: String!
+}
+
+input UpdateCapabilityInput{
+    id: String!
+    name:String
+    description: String
 }
 
 input VendorInput{
-  name: String
-  comment:  String
-  contact: PersonInput
+    name: String!
+    comment:  String!
+    contact_person_id: String!
+}
+
+input UpdateVendorInput{
+    id: String!
+    name: String
+    comment:  String
+    contact_person_id: String
+}
+
+input UpdateRatingInput{
+    id: String!
+    rating: Float
+    comment: String
+    reviewer_person_id: String
+    vendor_id: String
+    feature_id: String
 }
 
 input RatingInput{
-  rating: Float!
-  comment: String!
-  reviewer: PersonInput!
-  vendor: VendorInput!
-  capability_id: String!
+    rating: Float!
+    comment: String!
+    reviewer_person_id: String!
+    vendor_id: String!
+    feature_id: String!
 }
 
-enum CapabilityType {
-  API
-  COLLABORATION
-  ENTERPRISEREADINESS
-  IDE
-  MONITORING
-  SECURITY
-  SOURCECONTROLMANAGEMENT
-  TESTING
-  TRACING
-}
