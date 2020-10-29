@@ -72,7 +72,7 @@ interface IFeature {
 
 interface IRating{
     id: String
-    rating: Float
+    score: Float
     comment: String
     reviewer: IPerson
     capability: ICapability
