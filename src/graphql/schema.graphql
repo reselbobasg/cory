@@ -139,7 +139,7 @@ type Vendor implements IVendor {
 
 type Rating implements  IRating{
     id: String
-    rating: Float
+    score: Float
     comment: String
     reviewer: IPerson
     feature: IFeature
