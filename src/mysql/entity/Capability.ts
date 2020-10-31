@@ -6,6 +6,7 @@ import {
     UpdateDateColumn,
     ManyToMany, JoinTable
 } from 'typeorm';
+
 import {Rating} from './Rating'
 
 @Entity()
