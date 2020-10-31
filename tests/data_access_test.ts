@@ -6,6 +6,7 @@ import {Person} from "../src/mysql/entity/Person";
 import {Vendor} from "../src/mysql/entity/Vendor";
 import {Capability} from "../src/mysql/entity/Capability";
 import {Feature} from "../src/mysql/entity/Feature";
+import {Rating} from "../src/mysql/entity/Rating";
 
 import Faker from 'faker'
 
@@ -108,6 +109,11 @@ describe('Data Access Tests', function () {
             feature.description = Faker.lorem.words(6)
             await connection.manager.save(feature);
 
+            const capability = new Capability();
+            capability.name = Faker.lorem.word().toUpperCase();
+            capability.description = Faker.lorem.words(10)
+            await connection.manager.save(capability);
+
             const features = await connection.manager.find(Feature);
             const result = features.filter(f => {
                 if(f.id === feature.id) return f;
@@ -116,6 +122,61 @@ describe('Data Access Tests', function () {
             expect(result[0].name) .equals(feature.name);
             expect(result[0].description) .equals(feature.description);
             console.log({feature:result[0] })
+            await connection.close();
+        });
+    })
+
+    it('Can create Rating', async () => {
+        await createConnection().then(async connection => {
+            //Feature
+            const feature = new Feature();
+            feature.name = Faker.lorem.word().toUpperCase() + 'orama';
+            feature.description = Faker.lorem.words(6)
+            await connection.manager.save(feature);
+
+            //Capability
+            const capability = new Capability();
+            capability.name = Faker.lorem.word().toUpperCase();
+            capability.description = Faker.lorem.words(10)
+            await connection.manager.save(capability);
+
+            //Vendor
+            const contact = new Person();
+            contact.firstName = Faker.name.firstName();
+            contact.lastName = Faker.name.lastName();
+            contact.email = ` ${contact.firstName}.${contact.lastName}@example.com `
+            await connection.manager.save(contact);
+
+            const reviewer = new Person();
+            reviewer.firstName = Faker.name.firstName();
+            reviewer.lastName = Faker.name.lastName();
+            reviewer.email = ` ${reviewer.firstName}.${reviewer.lastName}@example.com `
+            await connection.manager.save(reviewer);
+
+            const vendor = new Vendor();
+            vendor.name = Faker.company.companyName();
+            vendor.contacts = [contact];
+            await connection.manager.save(vendor);
+
+            const rating = new Rating();
+            rating.comment = Faker.lorem.words(10);
+            rating.capability = capability;
+            rating.reviewer = reviewer;
+            rating.feature = feature;
+            rating.score = Faker.random.number(5);
+            rating.vendor = vendor;
+            await connection.manager.save(rating);
+
+            const ratings = await connection.manager.find(Rating);
+            const result = ratings.filter(r => {
+                if(r.id === rating.id) return r;
+            });
+
+            expect(result[0].id) .equals(rating.id);
+            expect(result[0].capability.name).equals(rating.capability.name);
+            expect(result[0].feature.name).equals(rating.feature.name);
+            expect(result[0].reviewer.lastName).equals(rating.reviewer.lastName);
+
             await connection.close();
         });
     })
