@@ -4,6 +4,8 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {Person} from "../src/mysql/entity/Person";
 import {Vendor} from "../src/mysql/entity/Vendor";
+import {Capability} from "../src/mysql/entity/Capability";
+import {Feature} from "../src/mysql/entity/Feature";
 
 import Faker from 'faker'
 
@@ -81,4 +83,41 @@ describe('Data Access Tests', function () {
             await connection.close();
         });
     });
-})
+
+    it('Can create Capability', async () => {
+        await createConnection().then(async connection => {
+            const capability = new Capability();
+            capability.name = Faker.lorem.word().toUpperCase();
+            capability.description = Faker.lorem.words(10)
+            await connection.manager.save(capability);
+
+            const capbilities = await connection.manager.find(Capability);
+            const result = capbilities.filter(c => {
+                if (c.id === capability.id) return c;
+            });
+            expect(result[0].id).equals(capability.id);
+            console.log({capability:result[0] })
+            await connection.close();
+        });
+    });
+
+    it('Can create Feature', async () => {
+        await createConnection().then(async connection => {
+            const feature = new Feature();
+            feature.name = Faker.lorem.word().toUpperCase() + 'orama';
+            feature.description = Faker.lorem.words(6)
+            await connection.manager.save(feature);
+
+            const features = await connection.manager.find(Feature);
+            const result = features.filter(f => {
+                if(f.id === feature.id) return f;
+            });
+            expect(result[0].id) .equals(feature.id);
+            expect(result[0].name) .equals(feature.name);
+            expect(result[0].description) .equals(feature.description);
+            console.log({feature:result[0] })
+            await connection.close();
+        });
+    })
+
+}).timeout(10000)
