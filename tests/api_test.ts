@@ -1,4 +1,3 @@
-import { DataUtilities } from './../utilities/data_utils';
 import { httpServer, stopServer } from '../server';
 import { GraphQLClient } from 'graphql-request';
 import { expect } from 'chai';
