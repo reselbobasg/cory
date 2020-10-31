@@ -92,8 +92,8 @@ describe('Data Access Tests', function () {
             capability.description = Faker.lorem.words(10)
             await connection.manager.save(capability);
 
-            const capbilities = await connection.manager.find(Capability);
-            const result = capbilities.filter(c => {
+            const capabilities = await connection.manager.find(Capability);
+            const result = capabilities.filter(c => {
                 if (c.id === capability.id) return c;
             });
             expect(result[0].id).equals(capability.id);

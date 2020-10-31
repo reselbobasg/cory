@@ -1,7 +1,10 @@
-
 import { IResolvers } from "graphql-tools";
 const resolverMap: IResolvers = {
-  Mutation: {},
+  Mutation: {
+    addCapability: async (parent, args) => {
+
+    }
+  },
   Query: {}
 };
 export default resolverMap;

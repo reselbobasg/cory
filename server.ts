@@ -5,10 +5,10 @@ import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
 import schema from './src/graphql/schema';
-import { Database } from './src/database/database';
+
 
 //intialize the db
-const database = new Database();
+//const database = new Database();
 
 const app = express();
 const server = new ApolloServer({
