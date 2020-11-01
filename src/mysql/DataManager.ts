@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {getConnection, Connection} from "typeorm";
+import {Connection} from "typeorm";
 import {createConnection} from "typeorm";
 import {Person} from "./entity/Person";
 import {Vendor} from "./entity/Vendor";
