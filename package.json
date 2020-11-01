@@ -8,8 +8,8 @@
     "start_server": "ts-node ./server.ts",
     "test": "mocha -r ts-node/register tests/**/*_test.ts --exit",
     "build": "tsc",
-    "seed": "mocha -r ts-node/register utilities/index.ts",
-    "mysql": "ts-node src/mysql/index.ts"
+    "mysql": "ts-node src/mysql/index.ts",
+    "seed": "mocha -r ts-node/register utilities/index.ts"
   },
   "repository": {
     "type": "git",
