@@ -139,9 +139,16 @@ export class DataManager {
 
     async getFeature(id:string): Promise<any> {
         const conn = await this.connectToDb()
-        const repo = conn.getRepository(Feature);
-        const features = await repo.find({ where: { id: id } ,relations: ["ratings"] });
-        if(features.length>0) return features[0];
+        const feature = conn
+            .getRepository(Feature)
+            .createQueryBuilder("feature")
+            .where("feature.id = :id", { id: id })
+            .getOne();
+        console.log(feature);
+        return feature;
+        //const repo = conn.getRepository(Feature);
+        //const features = await repo.find({ where: { id: id }, relations: ["ratings"] });
+        //if(features.length>0) return features[0];
     }
 
     async close(){
