@@ -1,10 +1,12 @@
-import {Entity,
+import {
+    Entity,
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
     UpdateDateColumn,
     ManyToMany,
-    JoinTable} from 'typeorm';
+    JoinTable, OneToMany
+} from 'typeorm';
 
 import {Rating} from './Rating'
 
@@ -19,9 +21,7 @@ export class Feature {
     @Column()
     description: string;
 
-
-    @ManyToMany(type => Rating)
-    @JoinTable()
+    @OneToMany(() => Rating, rating => rating.feature)
     ratings: Rating[]
 
     @CreateDateColumn()

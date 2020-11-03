@@ -4,7 +4,7 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    ManyToMany, JoinTable
+    OneToMany, JoinTable, JoinColumn
 } from 'typeorm';
 
 import {Rating} from './Rating'
@@ -20,9 +20,7 @@ export class Capability {
     @Column()
     description: string;
 
-    @ManyToMany(type => Rating, {
-        cascade: true
-    })
+    @OneToMany(() => Rating, rating => rating.capability)
     @JoinTable()
     ratings: Rating[]
 

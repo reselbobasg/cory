@@ -112,4 +112,28 @@ describe('Data Access Tests', function () {
         console.log(rating);
     });
 
+    it('Can get Ratings', async () => {
+        const ratings = await dataManager.getRatings();
+        console.log(ratings)
+        expect(ratings).to.be.an('array');
+    }).timeout(20000);
+
+    it('Can get Vendors', async () => {
+        const items = await dataManager.getVendors();
+        console.log(items)
+        expect(items).to.be.an('array');
+    }).timeout(20000);
+
+    it('Can get Persons', async () => {
+        const items = await dataManager.getPersons();
+        console.log(items)
+        expect(items).to.be.an('array');
+    }).timeout(20000);
+
+    it('Can get Capabilities', async () => {
+        const items = await dataManager.getCapabilities();
+        console.log(items)
+        expect(items).to.be.an('array');
+    }).timeout(20000);
+
 }).timeout(20000)

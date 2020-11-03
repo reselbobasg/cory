@@ -1,10 +1,14 @@
 type Query {
     capabilities: [Capability]
+    capability(id: ID!): Capability
     ratings: [Rating]
+    rating(id: ID!): Rating
     features: [Feature]
+    feature(id: ID!): Feature
     vendors: [Vendor]
-    reviewers: [Reviewer]
+    vendor(id: ID!): Vendor
     persons: [Person]
+    person(id: ID!):Person
 }
 
 type StatusMessage{
@@ -14,20 +18,20 @@ type StatusMessage{
 
 type Mutation {
     addRating(rating: RatingInput): IRating
-    addCapabllity(capability: CapabilityInput): ICapability
+    addCapability(capability: CapabilityInput): ICapability
     addFeature(feature: FeatureInput): IFeature
     addVendor(vendor: VendorInput): IVendor
     addReviewer(reviewer: ReviewerInput): IPerson
     addPerson(person: PersonInput): IPerson
 
     updateRating(rating: UpdateRatingInput): IRating
-    updateCapabllity(capability: UpdateCapabilityInput): ICapability
+    updateCapability(capability: UpdateCapabilityInput): ICapability
     updateFeature(feature: UpdateFeatureInput): IFeature
     updateVendor(vendor: UpdateVendorInput): IVendor
     updatePerson(person: UpdatePersonInput): IPerson
 
     deleteRating(id: String): StatusMessage
-    deleteCapabllity(id: String): StatusMessage
+    deleteCapability(id: String): StatusMessage
     deleteFeature(id: String): StatusMessage
     deleteVendor(id: String): StatusMessage
     deleteReviewer(id: String): StatusMessage
@@ -40,9 +44,9 @@ interface ICapability{
     id: String
     name:String
     description: String
-    ratings:  [IRating]
-    createDate: Date
-    updateDates: [Date]
+    #ratings:  [IRating]
+    createdAt: Date
+    updatedAt: Date
 }
 
 interface IVendor {
@@ -50,7 +54,7 @@ interface IVendor {
     name: String
     comment:  String
     contacts: [IPerson]
-    updateDates: [Date]
+    updatedAt: Date
 }
 
 interface IPerson {
@@ -58,16 +62,16 @@ interface IPerson {
     firstName: String
     lastName: String
     email: String
-    updateDates: [Date]
+    updatedAt: Date
 }
 
 interface IFeature {
     id: String
     name:String
     description: String
-    createDate: Date
-    updateDates: [Date]
-    ratings:  [IRating]
+    createdAt: Date
+    updatedAt: Date
+    #ratings:  [IRating]
 }
 
 interface IRating{
@@ -79,16 +83,16 @@ interface IRating{
     feature: IFeature
     vendor: IVendor
     createdAt: Date
-    updateDates: [Date]
+    updatedAt: Date
 }
 
 type Feature implements IFeature {
     id: String
     name:String
     description: String
-    ratings:  [IRating]
-    createDate: Date
-    updateDates: [Date]
+    #ratings:  [IRating]
+    createdAt: Date
+    updatedAt: Date
 }
 
 type Person implements IPerson {
@@ -96,7 +100,7 @@ type Person implements IPerson {
     firstName: String
     lastName: String
     email: String
-    updateDates: [Date]
+    updatedAt: Date
 }
 
 type Reviewer implements IPerson {
@@ -104,16 +108,16 @@ type Reviewer implements IPerson {
     firstName: String
     lastName: String
     email: String
-    updateDates: [Date]
+    updatedAt: Date
 }
 
 type Capability implements ICapability{
     id: String
     name:String
     description: String
-    ratings:  [IRating]
-    createDate: Date
-    updateDates: [Date]
+    #ratings:  [IRating]
+    createdAt: Date
+    updatedAt: Date
 }
 
 input FeatureInput  {
@@ -133,20 +137,20 @@ type Vendor implements IVendor {
     id: String
     name: String
     comment:  String
-    contacts: [IPerson]
-    updateDates: [Date]
+    contacts: [Person]
+    updatedAt: Date
 }
 
 type Rating implements  IRating{
     id: String
     score: Float
     comment: String
-    reviewer: IPerson
-    feature: IFeature
-    capability: ICapability
-    vendor: IVendor
+    reviewer: Person
+    feature: Feature
+    capability: Capability
+    vendor: Vendor
     createdAt: Date
-    updateDates: [Date]
+    updatedAt: Date
 }
 
 input PersonInput{

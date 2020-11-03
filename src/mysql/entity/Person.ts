@@ -1,8 +1,12 @@
-import {Entity,
+import {
+    Entity,
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
-    UpdateDateColumn} from 'typeorm';
+    UpdateDateColumn, OneToMany, ManyToMany, JoinTable
+} from 'typeorm';
+import {Rating} from "./Rating";
+import {Vendor} from "./Vendor"
 
 @Entity()
 export class Person {
@@ -23,4 +27,13 @@ export class Person {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @OneToMany(type => Rating, rating => rating.reviewer)
+    ratings:Rating[];
+
+    @ManyToMany(type => Vendor, {
+        cascade: true
+    })
+    @JoinTable()
+    vendors:Vendor[]
 }

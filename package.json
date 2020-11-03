@@ -9,7 +9,7 @@
     "test": "mocha -r ts-node/register tests/**/*_test.ts --exit",
     "build": "tsc",
     "mysql": "ts-node src/mysql/index.ts",
-    "seed": "mocha -r ts-node/register utilities/index.ts"
+    "seeder": "ts-node utilities/index.ts"
   },
   "repository": {
     "type": "git",

@@ -7,4 +7,4 @@ describe('Data Seed Tests', function () {
         await ds.close();
         console.log({count});
     });
-});
+}).timeout(20000)

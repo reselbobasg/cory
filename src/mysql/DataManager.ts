@@ -16,6 +16,7 @@ import {RatingInput} from "./inputs/RatingInput";
 export class DataManager {
     connection: Connection
     async connectToDb(): Promise<Connection>{
+
         if(!this.connection) this.connection = await createConnection();
         return this.connection
     }
@@ -38,15 +39,14 @@ export class DataManager {
 
     async getRatings(): Promise<Rating[]> {
         const conn = await this.connectToDb()
-        const repo = conn.getRepository(Rating);
-        return await repo.find({ relations: ["feature", "capability", "vendor"] });
+        return await conn.manager.find(Rating);
     }
 
     async getRating(id:string): Promise<any> {
         const conn = await this.connectToDb()
         const repo = conn.getRepository(Rating);
-        const ratings = await repo.find({ where: { id: id } ,relations: ["feature", "capability", "vendor"] });
-        if (ratings.length > 0) ratings[0];
+        const items = await repo.find({ where: { id: id }  });
+        if (items.length > 0) return items[0];
     }
 
     async setVendor(input:VendorInput): Promise<Vendor> {
@@ -70,8 +70,11 @@ export class DataManager {
 
     async getVendors(): Promise<Vendor[]> {
         const conn = await this.connectToDb()
+        //return conn.manager.find(Vendor)
         const repo = conn.getRepository(Vendor);
-        return await repo.find({ relations: ["contacts"] });
+        const items = await repo.find({relations: ["contacts"] });
+        console.log(items);
+        return items;
     }
 
     async setPerson(input:PersonInput): Promise<Person> {
